@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { ChevronRight, BookOpen, Video, Heart, Info } from 'lucide-react'
+import { ChevronRight, BookOpen, Video, Heart, Info, Briefcase, ExternalLink } from 'lucide-react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 const medicalFields = [
   {
@@ -128,36 +129,74 @@ const medicalFields = [
 // Add this type definition
 type MedicalField = typeof medicalFields[0];
 
+const extracurriculars = [
+  {
+    name: "Youth Medical Association",
+    focus: "Pre-med support, mentorship, medical skills training",
+    link: "https://www.yma.institute/home"
+  },
+  {
+    name: "Red Cross",
+    focus: "Volunteer opportunities, blood drives, first aid training",
+    link: "https://www.redcross.org"
+  },
+  {
+    name: "Cancer Kids First",
+    focus: "Supporting pediatric cancer patients, volunteer opportunities",
+    link: "https://www.cancerkidsfirst.org"
+  },
+  {
+    name: "Global Medical Brigades",
+    focus: "Medical service trips, healthcare volunteering abroad",
+    link: "https://medical.globalbrigades.org"
+  },
+  {
+    name: "Doctors Without Borders",
+    focus: "Awareness, advocacy, international healthcare volunteering",
+    link: "https://www.doctorswithoutborders.org"
+  },
+  {
+    name: "Medical Explorers",
+    focus: "Healthcare career exploration, shadowing, hands-on activities",
+    link: "https://www.hopkinsmedicine.org/all-childrens-hospital/academics/education/medical-explorers"
+  },
+  {
+    name: "HOSA – Future Health Professionals",
+    focus: "Medical competitions, leadership skills, conferences",
+    link: "https://hosa.org"
+  }
+];
+
 export default function Component() {
-  const [selectedField, setSelectedField] = useState(medicalFields[0])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [favorites, setFavorites] = useState<string[]>([])
-  const [compareMode, setCompareMode] = useState(false)
-  const [comparedFields, setComparedFields] = useState<MedicalField[]>([])
-  const [currentPage, setCurrentPage] = useState('home')
+  const [selectedField, setSelectedField] = useState<MedicalField | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [compareMode, setCompareMode] = useState(false);
+  const [comparedFields, setComparedFields] = useState<MedicalField[]>([]);
+  const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites')
+    const storedFavorites = localStorage.getItem('favorites');
     if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites))
+      setFavorites(JSON.parse(storedFavorites));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-  }, [favorites])
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const filteredFields = medicalFields.filter(field =>
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  );
 
   const toggleFavorite = (fieldName: string) => {
     setFavorites(prev =>
       prev.includes(fieldName)
         ? prev.filter(name => name !== fieldName)
         : [...prev, fieldName]
-    )
-  }
+    );
+  };
 
   const toggleCompare = (field: MedicalField) => {
     if (compareMode) {
@@ -175,14 +214,14 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
       <header className="bg-white shadow-md sticky top-0 z-10">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">MedPath</h1>
+          <h1 className="text-3xl font-bold text-blue-600">MedPath</h1>
           <nav>
             <ul className="flex space-x-4">
-              <li><button onClick={() => setCurrentPage('home')} className="text-gray-600 hover:text-gray-900">Home</button></li>
-              <li><button onClick={() => setCurrentPage('about')} className="text-gray-600 hover:text-gray-900">About</button></li>
+              <li><button onClick={() => setCurrentPage('home')} className="text-blue-600 hover:text-pink-500">Home</button></li>
+              <li><button onClick={() => setCurrentPage('about')} className="text-blue-600 hover:text-pink-500">About</button></li>
             </ul>
           </nav>
         </div>
@@ -192,180 +231,324 @@ export default function Component() {
         {currentPage === 'home' ? (
           <>
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Explore Medical Specialties</h2>
+              <h2 className="text-4xl font-extrabold text-blue-700 mb-4">Explore Medical Specialties</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Welcome to MedPath, your all-inclusive resource for learning about the various facets of healthcare and medicine. Whether you&apos;re a student hoping to pursue a career in medicine or you&apos;re just interested in the various specialties that are offered, you&apos;re in the ideal place!
+                Welcome to MedPath, your all-inclusive resource for learning about the various facets of healthcare and medicine.
               </p>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
-                MedPath is designed to give you an engaging, easy-to-use way to learn about different medical specialties. You&apos;ll find information on several specialties along with tools and instructional videos that will walk you through each career. Just click on any of the fields below to learn more about specific career choices, necessary skills, and practical applications.
+                MedPath is designed to give you an engaging, easy-to-use way to learn about different medical specialties.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="md:col-span-1 h-[calc(100vh-200px)] overflow-hidden">
-                <CardContent className="p-4">
-                  <div className="mb-4">
-                    <Input
-                      type="text"
-                      placeholder="Search medical fields..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-                  <div className="mb-4 flex justify-between items-center space-x-2">
-                    <Button
-                      onClick={() => {
-                        setCompareMode(!compareMode);
-                        if (compareMode) {
-                          setComparedFields([]);
-                        }
-                      }}
-                      variant={compareMode ? "default" : "outline"}
-                    >
-                      {compareMode ? "Exit Compare" : "Compare Fields"}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredFields.map((field) => (
+                <Card key={field.name} className="hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-blue-600">{field.name}</CardTitle>
+                    <CardDescription>{field.description.slice(0, 100)}...</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button onClick={() => setSelectedField(field)} className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                      Learn More
                     </Button>
-                    {compareMode && (
-                      <span className="text-sm text-gray-500 flex-shrink-0">
-                        Select up to 2 fields
-                      </span>
-                    )}
-                  </div>
-                  <ScrollArea className="h-[calc(100vh-340px)]">
-                    {filteredFields.map((field) => (
-                      <Button
-                        key={field.name}
-                        onClick={() => toggleCompare(field)}
-                        variant={
-                          compareMode
-                            ? comparedFields.some(f => f.name === field.name)
-                              ? "default"
-                              : "outline"
-                            : selectedField.name === field.name
-                            ? "default"
-                            : "ghost"
-                        }
-                        className="w-full justify-start mb-2 relative"
-                        disabled={compareMode && comparedFields.length === 2 && !comparedFields.some(f => f.name === field.name)}
-                      >
-                        <ChevronRight className="mr-2 h-4 w-4" />
-                        {field.name}
-                        <Heart
-                          className={`absolute right-2 h-4 w-4 ${
-                            favorites.includes(field.name) ? 'fill-red-500 text-red-500' : 'text-gray-400'
-                          }`}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleFavorite(field.name)
-                          }}
-                        />
-                      </Button>
-                    ))}
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-
-              <Card className="md:col-span-3 h-[calc(100vh-200px)] overflow-hidden">
-                <CardContent className="p-6">
-                  {compareMode ? (
-                    <div>
-                      <h2 className="text-3xl font-bold mb-4">Field Comparison</h2>
-                      {comparedFields.length === 0 ? (
-                        <p className="text-lg text-gray-600">Select up to two fields to compare.</p>
-                      ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {comparedFields.map((field: typeof medicalFields[0]) => (
-                            <div key={field.name} className="border p-4 rounded-lg">
-                              <h3 className="text-xl font-semibold mb-2">{field.name}</h3>
-                              <p className="text-gray-600 mb-2">{field.description}</p>
-                              <h4 className="font-semibold mt-4 mb-2">Key Skills:</h4>
-                              <ul className="list-disc pl-5 mb-2">
-                                {field.skills.map((skill, index) => (
-                                  <li key={index}>{skill}</li>
-                                ))}
-                              </ul>
-                              <p className="font-semibold">Average Salary: {field.averageSalary}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <>
-                      <h2 className="text-3xl font-bold mb-4">{selectedField.name}</h2>
-                      <Tabs defaultValue="overview" className="w-full">
-                        <TabsList>
-                          <TabsTrigger value="overview">
-                            <BookOpen className="mr-2 h-4 w-4" />
-                            Overview
-                          </TabsTrigger>
-                          <TabsTrigger value="videos">
-                            <Video className="mr-2 h-4 w-4" />
-                            Educational Videos
-                          </TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="overview">
-                          <ScrollArea className="h-[calc(100vh-380px)]">
-                            <p className="text-gray-600 text-lg leading-relaxed mb-4">{selectedField.description}</p>
-                            <h3 className="text-xl font-semibold mb-2">Key Skills:</h3>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {selectedField.skills.map((skill, index) => (
-                                <Badge key={index} variant="secondary">{skill}</Badge>
-                              ))}
-                            </div>
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <div className="flex items-center">
-                                    <h3 className="text-xl font-semibold mr-2">Average Salary:</h3>
-                                    <Info className="h-4 w-4 text-gray-400" />
-                                  </div>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>Based on national averages. May vary by location and experience.</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                            <p className="text-lg font-medium text-green-600">{selectedField.averageSalary}</p>
-                          </ScrollArea>
-                        </TabsContent>
-                        <TabsContent value="videos">
-                          <ScrollArea className="h-[calc(100vh-380px)]">
-                            <ul className="space-y-4">
-                              {selectedField.videos.map((video, index) => (
-                                <li key={index}>
-                                  <a
-                                    href={video.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-blue-600 hover:underline flex items-center"
-                                  >
-                                    <Video className="mr-2 h-4 w-4" />
-                                    {video.title}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </ScrollArea>
-                        </TabsContent>
-                      </Tabs>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </>
         ) : (
-          <div>
-            <h2 className="text-3xl font-bold mb-4">About MedPath</h2>
-            <p className="text-lg text-gray-600">
-              MedPath is your comprehensive resource for exploring various medical specialties. 
-              We aim to provide students and aspiring medical professionals with detailed information 
-              about different fields in medicine, helping them make informed decisions about their career paths.
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-blue-600 mb-4">About MedPath</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              MedPath is dedicated to helping aspiring medical professionals explore various specialties in the field of medicine.
+              Our platform provides comprehensive information about different medical specialties, including key skills, average salaries, and educational resources.
             </p>
           </div>
         )}
       </main>
+
+      <Dialog open={!!selectedField} onOpenChange={() => setSelectedField(null)}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-blue-600">{selectedField?.name}</DialogTitle>
+          </DialogHeader>
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="overview" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="videos" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                <Video className="mr-2 h-4 w-4" />
+                Educational Videos
+              </TabsTrigger>
+              <TabsTrigger value="extracurriculars" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+                <Briefcase className="mr-2 h-4 w-4" />
+                Extracurriculars
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="overview">
+              <ScrollArea className="h-[calc(100vh-380px)]">
+                {selectedField?.name === "Internal Medicine" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/internalmedicine1.png"
+                        alt="Internal Medicine Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/internalmedicine2.png"
+                        alt="Internal Medicine Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Surgery" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/surgery1.png"
+                        alt="Surgery Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/surgery2.png"
+                        alt="Surgery Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Pediatrics" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/pediatrics1.png"
+                        alt="Pediatrics Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/pediatrics2.png"
+                        alt="Pediatrics Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Radiology" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/radiology1.png"
+                        alt="Radiology Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/radiology2.png"
+                        alt="Radiology Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Cardiology" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Cardio1.png"
+                        alt="Cardiology Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Cardio2.png"
+                        alt="Cardiology Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Neurology" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Neuro1.png"
+                        alt="Neurology Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Neuro2.png"
+                        alt="Neurology Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "OBGYN" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Obgyn1.png"
+                        alt="OBGYN Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Obgyn2.png"
+                        alt="Obgyn Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Emergency Medicine" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/EmergencyMedicine1.png"
+                        alt="Emergency Medicine Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/EmergencyMedicine2.png"
+                        alt="Emergency Medicine Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Anesthesiology" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Anesthesiology1.png"
+                        alt="Anesthesiology Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Anesthesiology2.png"
+                        alt="Anesthesiology Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Psychiatry" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Psychiatry1.png"
+                        alt="Psychiatry Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Psychiatry2.png"
+                        alt="Psychiatry Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">{selectedField?.description}</p>
+                {selectedField?.name === "Internal Medicine" && (
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                    <h4 className="text-lg font-semibold text-blue-700 mb-2">Key Areas of Focus:</h4>
+                    <ul className="list-disc list-inside text-gray-700">
+                      <li>Preventive medicine and health promotion</li>
+                      <li>Management of complex, chronic conditions</li>
+                      <li>Diagnosis and treatment of acute illnesses</li>
+                      <li>Coordination of care across multiple specialties</li>
+                    </ul>
+                  </div>
+                )}
+                <h3 className="text-xl font-semibold mb-2 text-blue-600">Key Skills:</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {selectedField?.skills.map((skill, index) => (
+                    <Badge key={index} variant="secondary" className="bg-pink-100 text-pink-800">{skill}</Badge>
+                  ))}
+                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center">
+                        <h3 className="text-xl font-semibold mr-2 text-blue-600">Average Salary:</h3>
+                        <Info className="h-4 w-4 text-gray-400" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Based on national averages. May vary by location and experience.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <p className="text-lg font-medium text-pink-600">{selectedField?.averageSalary}</p>
+              </ScrollArea>
+            </TabsContent>
+
+            <TabsContent value="videos">
+              <ScrollArea className="h-[calc(100vh-380px)]">
+                <ul className="space-y-4">
+                  {selectedField?.videos.map((video, index) => (
+                    <li key={index}>
+                      <a
+                        href={video.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-pink-500 flex items-center"
+                      >
+                        <Video className="mr-2 h-4 w-4" />
+                        {video.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </ScrollArea>
+            </TabsContent>
+
+            <TabsContent value="extracurriculars">
+              <ScrollArea className="h-[calc(100vh-380px)]">
+                <ul className="space-y-4">
+                  {extracurriculars.map((extracurricular, index) => (
+                    <li key={index} className="border-b pb-4">
+                      <h3 className="text-lg font-semibold text-blue-600">{extracurricular.name}</h3>
+                      <p className="text-gray-600 mb-2">{extracurricular.focus}</p>
+                      <a
+                        href={extracurricular.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-pink-500 hover:text-pink-600 flex items-center"
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Learn More
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </ScrollArea>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
     </div>
-  )
+  );
 }
