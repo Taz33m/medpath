@@ -1,0 +1,5 @@
+out/
+**/polyfills-*.js
+**/_buildManifest.js
+**/_ssgManifest.js
+

@@ -151,8 +151,6 @@ export default function Component() {
   const [selectedField, setSelectedField] = useState<MedicalField | null>(null);
   const [searchTerm] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [compareMode] = useState(false);
-  const [setComparedFields] = useState<MedicalField[]>([]);
   const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
