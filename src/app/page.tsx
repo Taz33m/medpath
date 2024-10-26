@@ -7,9 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { BookOpen, Video, Info, Briefcase, ExternalLink } from 'lucide-react'
+import { BookOpen, Video, Info, Briefcase, ExternalLink, Scale } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import Image from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const medicalFields = [
   {
@@ -152,6 +153,7 @@ export default function Component() {
   const [searchTerm] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState('home');
+  const [fieldsToCompare, setFieldsToCompare] = useState<[MedicalField | null, MedicalField | null]>([null, null]);
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem('favorites');
@@ -177,6 +179,7 @@ export default function Component() {
             <ul className="flex space-x-4">
               <li><button onClick={() => setCurrentPage('home')} className="text-blue-600 hover:text-pink-500">Home</button></li>
               <li><button onClick={() => setCurrentPage('about')} className="text-blue-600 hover:text-pink-500">About</button></li>
+              <li><button onClick={() => setCurrentPage('compare')} className="text-blue-600 hover:text-pink-500">Compare</button></li>
             </ul>
           </nav>
         </div>
@@ -211,13 +214,60 @@ export default function Component() {
               ))}
             </div>
           </>
-        ) : (
+        ) : currentPage === 'about' ? (
           <div className="text-center">
             <h2 className="text-3xl font-bold text-blue-600 mb-4">About MedPath</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               MedPath is dedicated to helping aspiring medical professionals explore various specialties in the field of medicine.
               Our platform provides comprehensive information about different medical specialties, including key skills, average salaries, and educational resources.
             </p>
+          </div>
+        ) : (
+          <div className="p-4 space-y-4">
+            <h2 className="text-3xl font-bold text-blue-600 mb-4">Compare Medical Fields</h2>
+            <div className="flex space-x-4">
+              {[0, 1].map((index) => (
+                <Select
+                  key={index}
+                  value={fieldsToCompare[index]?.name || ""}
+                  onValueChange={(value) => {
+                    const newField = medicalFields.find(f => f.name === value) || null;
+                    setFieldsToCompare(prev => {
+                      const newFields = [...prev] as [MedicalField | null, MedicalField | null];
+                      newFields[index] = newField;
+                      return newFields;
+                    });
+                  }}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select a field" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {medicalFields.map((field) => (
+                      <SelectItem key={field.name} value={field.name}>{field.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ))}
+            </div>
+            {fieldsToCompare[0] && fieldsToCompare[1] && (
+              <div className="grid grid-cols-2 gap-4">
+                {fieldsToCompare.map((field, index) => (
+                  <div key={index} className="border p-4 rounded-lg">
+                    <h3 className="text-xl font-semibold mb-2 text-blue-600">{field?.name}</h3>
+                    <p className="text-gray-600 mb-2">{field?.description}</p>
+                    <h4 className="text-lg font-semibold mb-1 text-blue-600">Key Skills:</h4>
+                    <ul className="list-disc list-inside mb-2">
+                      {field?.skills.map((skill, i) => (
+                        <li key={i}>{skill}</li>
+                      ))}
+                    </ul>
+                    <h4 className="text-lg font-semibold mb-1 text-blue-600">Average Salary:</h4>
+                    <p className="text-pink-600">{field?.averageSalary}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
