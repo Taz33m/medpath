@@ -103,6 +103,26 @@ const medicalFields = [
     ],
     skills: ["Airway management", "Pharmacology expertise", "Critical care"],
     averageSalary: "$405,000"
+  },
+  {
+    name: "Psychiatry",
+    description: "Psychiatry focuses on the diagnosis, treatment, and prevention of mental illnesses and emotional problems. Psychiatrists may employ a combination of psychotherapy, medication, and other interventions to treat patients with illnesses like depression, bipolar disorder, schizophrenia, and anxiety. They monitor patients' mental health through exams and interviews. This specialty emphasizes treating mental health holistically, considering social, psychological, and biological factors that might affect patients throughout their lives.",
+    videos: [
+      { title: "73 Questions with a Psychiatry Resident ft. Jake Goodman MD | ND MD", url: "https://www.youtube.com/watch?v=68np-Fp92P4" },
+      { title: "Why Did I Become A Psychiatrist? - My Medical School & Residency Journey", url: "https://www.youtube.com/watch?v=6yjvwXlZ6lo" }
+    ],
+    skills: ["Psychotherapy techniques", "Medication management", "Empathetic listening"],
+    averageSalary: "$275,000"
+  },
+  {
+    name: "Medical Extracurriculars",
+    description: "Medical extracurriculars are activities outside of regular medical curriculum that enhance a student's medical knowledge, skills, and experience. These can include research projects, volunteer work in healthcare settings, medical missions, and participation in medical student organizations. While not a medical specialty, extracurriculars are crucial for aspiring medical professionals to gain hands-on experience and develop important skills.",
+    videos: [
+      { title: "Medical School Extracurriculars that Actually Matter", url: "https://www.youtube.com/watch?v=example23" },
+      { title: "5 BEST Medical School Extracurriculars", url: "https://www.youtube.com/watch?v=example24" }
+    ],
+    skills: ["Time management", "Leadership", "Research skills"],
+    averageSalary: "N/A"
   }
 ];
 
@@ -425,6 +445,7 @@ export default function Component() {
                     </div>
                   </div>
                 )}
+                    // Start of Selection
                     {selectedField?.name === "Emergency Medicine" && (
                       <div className="mb-6 flex flex-col md:flex-row gap-4">
                         <div className="md:w-1/2">

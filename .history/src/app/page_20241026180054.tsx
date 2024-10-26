@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { BookOpen, Video, Heart, Info, Briefcase, ExternalLink } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import Image from 'next/image';
 
 const medicalFields = [
   {
@@ -103,6 +103,26 @@ const medicalFields = [
     ],
     skills: ["Airway management", "Pharmacology expertise", "Critical care"],
     averageSalary: "$405,000"
+  },
+  {
+    name: "Psychiatry",
+    description: "Psychiatry focuses on the diagnosis, treatment, and prevention of mental illnesses and emotional problems. Psychiatrists may employ a combination of psychotherapy, medication, and other interventions to treat patients with illnesses like depression, bipolar disorder, schizophrenia, and anxiety. They monitor patients' mental health through exams and interviews. This specialty emphasizes treating mental health holistically, considering social, psychological, and biological factors that might affect patients throughout their lives.",
+    videos: [
+      { title: "73 Questions with a Psychiatry Resident ft. Jake Goodman MD | ND MD", url: "https://www.youtube.com/watch?v=68np-Fp92P4" },
+      { title: "Why Did I Become A Psychiatrist? - My Medical School & Residency Journey", url: "https://www.youtube.com/watch?v=6yjvwXlZ6lo" }
+    ],
+    skills: ["Psychotherapy techniques", "Medication management", "Empathetic listening"],
+    averageSalary: "$275,000"
+  },
+  {
+    name: "Medical Extracurriculars",
+    description: "Medical extracurriculars are activities outside of regular medical curriculum that enhance a student's medical knowledge, skills, and experience. These can include research projects, volunteer work in healthcare settings, medical missions, and participation in medical student organizations. While not a medical specialty, extracurriculars are crucial for aspiring medical professionals to gain hands-on experience and develop important skills.",
+    videos: [
+      { title: "Medical School Extracurriculars that Actually Matter", url: "https://www.youtube.com/watch?v=example23" },
+      { title: "5 BEST Medical School Extracurriculars", url: "https://www.youtube.com/watch?v=example24" }
+    ],
+    skills: ["Time management", "Leadership", "Research skills"],
+    averageSalary: "N/A"
   }
 ];
 
@@ -270,24 +290,19 @@ export default function Component() {
 
             <TabsContent value="overview">
               <ScrollArea className="h-[calc(100vh-380px)]">
-                {/* Images section */}
                 {selectedField?.name === "Internal Medicine" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/internalmedicine1.png"
                         alt="Internal Medicine Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/internalmedicine2.png"
                         alt="Internal Medicine Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -296,20 +311,16 @@ export default function Component() {
                 {selectedField?.name === "Surgery" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/surgery1.png"
                         alt="Surgery Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/surgery2.png"
                         alt="Surgery Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -318,20 +329,16 @@ export default function Component() {
                 {selectedField?.name === "Pediatrics" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/pediatrics1.png"
                         alt="Pediatrics Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/pediatrics2.png"
                         alt="Pediatrics Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -340,20 +347,16 @@ export default function Component() {
                 {selectedField?.name === "Radiology" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/radiology1.png"
                         alt="Radiology Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/radiology2.png"
                         alt="Radiology Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -362,20 +365,16 @@ export default function Component() {
                 {selectedField?.name === "Cardiology" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Cardio1.png"
                         alt="Cardiology Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Cardio2.png"
                         alt="Cardiology Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -384,20 +383,16 @@ export default function Component() {
                 {selectedField?.name === "Neurology" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Neuro1.png"
                         alt="Neurology Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Neuro2.png"
                         alt="Neurology Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
@@ -406,112 +401,107 @@ export default function Component() {
                 {selectedField?.name === "OBGYN" && (
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Obgyn1.png"
                         alt="OBGYN Illustration 1"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                     <div className="md:w-1/2">
-                      <Image
+                      <img
                         src="/Obgyn2.png"
                         alt="Obgyn Illustration 2"
-                        width={500}
-                        height={300}
                         className="rounded-lg shadow-md w-full h-auto"
                       />
                     </div>
                   </div>
                 )}
-                    {selectedField?.name === "Emergency Medicine" && (
-                      <div className="mb-6 flex flex-col md:flex-row gap-4">
-                        <div className="md:w-1/2">
-                          <Image
-                            src="/EmergencyMedicine1.png"
-                            alt="Emergency Medicine Illustration 1"
-                            width={500}
-                            height={300}
-                            className="rounded-lg shadow-md w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <Image
-                            src="/EmergencyMedicine2.png"
-                            alt="Emergency Medicine Illustration 2"
-                            width={500}
-                            height={300}
-                            className="rounded-lg shadow-md w-full h-auto"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {selectedField?.name === "Anesthesiology" && (
-                      <div className="mb-6 flex flex-col md:flex-row gap-4">
-                        <div className="md:w-1/2">
-                          <Image
-                            src="/Anesthesiology1.png"
-                            alt="Anesthesiology Illustration 1"
-                            width={500}
-                            height={300}
-                            className="rounded-lg shadow-md w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <Image
-                            src="/Anesthesiology2.png"
-                            alt="Anesthesiology Illustration 2"
-                            width={500}
-                            height={300}
-                            className="rounded-lg shadow-md w-full h-auto"
-                          />
-                        </div>
-                      </div>
-                    )}
-
-                {/* Description and details section */}
-                <div className="p-4">
-                  <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                    {selectedField?.description}
-                  </p>
-
-                  {selectedField?.name === "Internal Medicine" && (
-                    <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-                      <h4 className="text-lg font-semibold text-blue-700 mb-2">Key Areas of Focus:</h4>
-                      <ul className="list-disc list-inside text-gray-700">
-                        <li>Preventive medicine and health promotion</li>
-                        <li>Management of complex, chronic conditions</li>
-                        <li>Diagnosis and treatment of acute illnesses</li>
-                        <li>Coordination of care across multiple specialties</li>
-                      </ul>
+                {selectedField?.name === "Emergency Medicine" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/EmergencyMedicine1.png"
+                        alt="Emergency Medicine Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
                     </div>
-                  )}
-
-                  <h3 className="text-xl font-semibold mb-2 text-blue-600">Key Skills:</h3>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {selectedField?.skills.map((skill, index) => (
-                      <Badge key={index} variant="secondary" className="bg-pink-100 text-pink-800">
-                        {skill}
-                      </Badge>
-                    ))}
+                    <div className="md:w-1/2">
+                      <img
+                        src="/EmergencyMedicine2.png"
+                        alt="Emergency Medicine Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
                   </div>
-
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="flex items-center">
-                          <h3 className="text-xl font-semibold mr-2 text-blue-600">Average Salary:</h3>
-                          <Info className="h-4 w-4 text-gray-400" />
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Based on national averages. May vary by location and experience.</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <p className="text-lg font-medium text-pink-600">{selectedField?.averageSalary}</p>
+                )}
+                {selectedField?.name === "Anesthesiology" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Anesthesiology1.png"
+                        alt="Anesthesiology Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Anesthesiology2.png"
+                        alt="Anesthesiology Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                {selectedField?.name === "Psychiatry" && (
+                  <div className="mb-6 flex flex-col md:flex-row gap-4">
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Psychiatry1.png"
+                        alt="Psychiatry Illustration 1"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                    <div className="md:w-1/2">
+                      <img
+                        src="/Psychiatry2.png"
+                        alt="Psychiatry Illustration 2"
+                        className="rounded-lg shadow-md w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                )}
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">{selectedField?.description}</p>
+                {selectedField?.name === "Internal Medicine" && (
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                    <h4 className="text-lg font-semibold text-blue-700 mb-2">Key Areas of Focus:</h4>
+                    <ul className="list-disc list-inside text-gray-700">
+                      <li>Preventive medicine and health promotion</li>
+                      <li>Management of complex, chronic conditions</li>
+                      <li>Diagnosis and treatment of acute illnesses</li>
+                      <li>Coordination of care across multiple specialties</li>
+                    </ul>
+                  </div>
+                )}
+                <h3 className="text-xl font-semibold mb-2 text-blue-600">Key Skills:</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {selectedField?.skills.map((skill, index) => (
+                    <Badge key={index} variant="secondary" className="bg-pink-100 text-pink-800">{skill}</Badge>
+                  ))}
                 </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center">
+                        <h3 className="text-xl font-semibold mr-2 text-blue-600">Average Salary:</h3>
+                        <Info className="h-4 w-4 text-gray-400" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Based on national averages. May vary by location and experience.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <p className="text-lg font-medium text-pink-600">{selectedField?.averageSalary}</p>
               </ScrollArea>
             </TabsContent>
 

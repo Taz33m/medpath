@@ -103,7 +103,7 @@ const medicalFields = [
     ],
     skills: ["Airway management", "Pharmacology expertise", "Critical care"],
     averageSalary: "$405,000"
-  }
+  },
 ];
 
 // Add this type definition
@@ -425,6 +425,7 @@ export default function Component() {
                     </div>
                   </div>
                 )}
+                    // Start of Selection
                     {selectedField?.name === "Emergency Medicine" && (
                       <div className="mb-6 flex flex-col md:flex-row gap-4">
                         <div className="md:w-1/2">
