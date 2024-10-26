@@ -152,7 +152,7 @@ export default function Component() {
   const [searchTerm] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [compareMode] = useState(false);
-  const [setComparedFields] = useState<MedicalField[]>([]);
+  const [, setComparedFields] = useState<MedicalField[]>([]);
   const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
@@ -169,6 +169,29 @@ export default function Component() {
   const filteredFields = medicalFields.filter(field =>
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const toggleFavorite = (fieldName: string) => {
+    setFavorites(prev =>
+      prev.includes(fieldName)
+        ? prev.filter(name => name !== fieldName)
+        : [...prev, fieldName]
+    );
+  };
+
+  const toggleCompare = (field: MedicalField) => {
+    if (compareMode) {
+      setComparedFields(prev => {
+        if (prev.some(f => f.name === field.name)) {
+          return prev.filter(f => f.name !== field.name);
+        } else if (prev.length < 2) {
+          return [...prev, field];
+        }
+        return prev;
+      });
+    } else {
+      setSelectedField(field);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">

@@ -170,6 +170,7 @@ export default function Component() {
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
       <header className="bg-white shadow-md sticky top-0 z-10">

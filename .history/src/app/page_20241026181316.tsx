@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { BookOpen, Video, Info, Briefcase, ExternalLink } from 'lucide-react'
+import { BookOpen, Video, Heart, Info, Briefcase, ExternalLink } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import Image from 'next/image';
 
@@ -149,10 +149,10 @@ const extracurriculars = [
 
 export default function Component() {
   const [selectedField, setSelectedField] = useState<MedicalField | null>(null);
-  const [searchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [compareMode] = useState(false);
-  const [setComparedFields] = useState<MedicalField[]>([]);
+  const [compareMode, setCompareMode] = useState(false);
+  const [comparedFields, setComparedFields] = useState<MedicalField[]>([]);
   const [currentPage, setCurrentPage] = useState('home');
 
   useEffect(() => {
@@ -169,6 +169,29 @@ export default function Component() {
   const filteredFields = medicalFields.filter(field =>
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const toggleFavorite = (fieldName: string) => {
+    setFavorites(prev =>
+      prev.includes(fieldName)
+        ? prev.filter(name => name !== fieldName)
+        : [...prev, fieldName]
+    );
+  };
+
+  const toggleCompare = (field: MedicalField) => {
+    if (compareMode) {
+      setComparedFields(prev => {
+        if (prev.some(f => f.name === field.name)) {
+          return prev.filter(f => f.name !== field.name);
+        } else if (prev.length < 2) {
+          return [...prev, field];
+        }
+        return prev;
+      });
+    } else {
+      setSelectedField(field);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">

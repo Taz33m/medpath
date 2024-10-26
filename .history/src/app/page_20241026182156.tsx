@@ -170,6 +170,23 @@ export default function Component() {
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
+
+  const toggleCompare = (field: MedicalField) => {
+    if (compareMode) {
+      setComparedFields(prev => {
+        if (prev.some(f => f.name === field.name)) {
+          return prev.filter(f => f.name !== field.name);
+        } else if (prev.length < 2) {
+          return [...prev, field];
+        }
+        return prev;
+      });
+    } else {
+      setSelectedField(field);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
       <header className="bg-white shadow-md sticky top-0 z-10">
