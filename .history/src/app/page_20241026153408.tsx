@@ -159,7 +159,7 @@ export default function Component() {
     )
   }
 
-  const toggleCompare = (field: MedicalField) => {
+  const toggleCompare = (field) => {
     if (compareMode) {
       setComparedFields(prev => {
         if (prev.some(f => f.name === field.name)) {

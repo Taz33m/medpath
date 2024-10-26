@@ -125,15 +125,12 @@ const medicalFields = [
   }
 ];
 
-// Add this type definition
-type MedicalField = typeof medicalFields[0];
-
 export default function Component() {
   const [selectedField, setSelectedField] = useState(medicalFields[0])
   const [searchTerm, setSearchTerm] = useState("")
   const [favorites, setFavorites] = useState<string[]>([])
   const [compareMode, setCompareMode] = useState(false)
-  const [comparedFields, setComparedFields] = useState<MedicalField[]>([])
+  const [comparedFields, setComparedFields] = useState([])
   const [currentPage, setCurrentPage] = useState('home')
 
   useEffect(() => {
@@ -159,7 +156,7 @@ export default function Component() {
     )
   }
 
-  const toggleCompare = (field: MedicalField) => {
+  const toggleCompare = (field) => {
     if (compareMode) {
       setComparedFields(prev => {
         if (prev.some(f => f.name === field.name)) {

@@ -125,15 +125,12 @@ const medicalFields = [
   }
 ];
 
-// Add this type definition
-type MedicalField = typeof medicalFields[0];
-
 export default function Component() {
   const [selectedField, setSelectedField] = useState(medicalFields[0])
   const [searchTerm, setSearchTerm] = useState("")
-  const [favorites, setFavorites] = useState<string[]>([])
+  const [favorites, setFavorites] = useState([])
   const [compareMode, setCompareMode] = useState(false)
-  const [comparedFields, setComparedFields] = useState<MedicalField[]>([])
+  const [comparedFields, setComparedFields] = useState([])
   const [currentPage, setCurrentPage] = useState('home')
 
   useEffect(() => {
@@ -151,7 +148,7 @@ export default function Component() {
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const toggleFavorite = (fieldName: string) => {
+  const toggleFavorite = (fieldName) => {
     setFavorites(prev =>
       prev.includes(fieldName)
         ? prev.filter(name => name !== fieldName)
@@ -159,7 +156,7 @@ export default function Component() {
     )
   }
 
-  const toggleCompare = (field: MedicalField) => {
+  const toggleCompare = (field) => {
     if (compareMode) {
       setComparedFields(prev => {
         if (prev.some(f => f.name === field.name)) {
@@ -194,10 +191,10 @@ export default function Component() {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Explore Medical Specialties</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Welcome to MedPath, your all-inclusive resource for learning about the various facets of healthcare and medicine. Whether you&apos;re a student hoping to pursue a career in medicine or you&apos;re just interested in the various specialties that are offered, you&apos;re in the ideal place!
+                Welcome to MedPath, your all-inclusive resource for learning about the various facets of healthcare and medicine. Whether you're a student hoping to pursue a career in medicine or you're just interested in the various specialties that are offered, you're in the ideal place!
               </p>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
-                MedPath is designed to give you an engaging, easy-to-use way to learn about different medical specialties. You&apos;ll find information on several specialties along with tools and instructional videos that will walk you through each career. Just click on any of the fields below to learn more about specific career choices, necessary skills, and practical applications.
+                MedPath is designed to give you an engaging, easy-to-use way to learn about different medical specialties. You'll find information on several specialties along with tools and instructional videos that will walk you through each career. Just click on any of the fields below to learn more about specific career choices, necessary skills, and practical applications.
               </p>
             </div>
 
@@ -274,7 +271,7 @@ export default function Component() {
                         <p className="text-lg text-gray-600">Select up to two fields to compare.</p>
                       ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {comparedFields.map((field: typeof medicalFields[0]) => (
+                          {comparedFields.map((field) => (
                             <div key={field.name} className="border p-4 rounded-lg">
                               <h3 className="text-xl font-semibold mb-2">{field.name}</h3>
                               <p className="text-gray-600 mb-2">{field.description}</p>

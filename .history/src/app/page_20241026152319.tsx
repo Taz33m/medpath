@@ -125,15 +125,12 @@ const medicalFields = [
   }
 ];
 
-// Add this type definition
-type MedicalField = typeof medicalFields[0];
-
 export default function Component() {
   const [selectedField, setSelectedField] = useState(medicalFields[0])
   const [searchTerm, setSearchTerm] = useState("")
-  const [favorites, setFavorites] = useState<string[]>([])
+  const [favorites, setFavorites] = useState([])
   const [compareMode, setCompareMode] = useState(false)
-  const [comparedFields, setComparedFields] = useState<MedicalField[]>([])
+  const [comparedFields, setComparedFields] = useState([])
   const [currentPage, setCurrentPage] = useState('home')
 
   useEffect(() => {
@@ -151,7 +148,7 @@ export default function Component() {
     field.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const toggleFavorite = (fieldName: string) => {
+  const toggleFavorite = (fieldName) => {
     setFavorites(prev =>
       prev.includes(fieldName)
         ? prev.filter(name => name !== fieldName)
@@ -159,7 +156,7 @@ export default function Component() {
     )
   }
 
-  const toggleCompare = (field: MedicalField) => {
+  const toggleCompare = (field) => {
     if (compareMode) {
       setComparedFields(prev => {
         if (prev.some(f => f.name === field.name)) {
@@ -274,7 +271,7 @@ export default function Component() {
                         <p className="text-lg text-gray-600">Select up to two fields to compare.</p>
                       ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {comparedFields.map((field: typeof medicalFields[0]) => (
+                          {comparedFields.map((field) => (
                             <div key={field.name} className="border p-4 rounded-lg">
                               <h3 className="text-xl font-semibold mb-2">{field.name}</h3>
                               <p className="text-gray-600 mb-2">{field.description}</p>
