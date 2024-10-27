@@ -300,7 +300,7 @@ export default function Component() {
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
                       <Image
-                        src="/internalmedicine1.png"
+                        src="/internalMedicine1.png"
                         alt="Internal Medicine Illustration 1"
                         width={500}
                         height={300}
@@ -309,7 +309,7 @@ export default function Component() {
                     </div>
                     <div className="md:w-1/2">
                       <Image
-                        src="/internalmedicine2.png"
+                        src="/internalMedicine2.png"
                         alt="Internal Medicine Illustration 2"
                         width={500}
                         height={300}
@@ -322,7 +322,7 @@ export default function Component() {
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
                       <Image
-                        src="/surgery1.png"
+                        src="/Surgery1.png"
                         alt="Surgery Illustration 1"
                         width={500}
                         height={300}
@@ -331,7 +331,7 @@ export default function Component() {
                     </div>
                     <div className="md:w-1/2">
                       <Image
-                        src="/surgery2.png"
+                        src="/Surgery2.png"
                         alt="Surgery Illustration 2"
                         width={500}
                         height={300}
@@ -344,7 +344,7 @@ export default function Component() {
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
                       <Image
-                        src="/pediatrics1.png"
+                        src="/Pediatrics1.png"
                         alt="Pediatrics Illustration 1"
                         width={500}
                         height={300}
@@ -353,7 +353,7 @@ export default function Component() {
                     </div>
                     <div className="md:w-1/2">
                       <Image
-                        src="/pediatrics2.png"
+                        src="/Pediatrics2.png"
                         alt="Pediatrics Illustration 2"
                         width={500}
                         height={300}
@@ -366,7 +366,7 @@ export default function Component() {
                   <div className="mb-6 flex flex-col md:flex-row gap-4">
                     <div className="md:w-1/2">
                       <Image
-                        src="/radiology1.png"
+                        src="/Radiology1.png"
                         alt="Radiology Illustration 1"
                         width={500}
                         height={300}
@@ -375,7 +375,7 @@ export default function Component() {
                     </div>
                     <div className="md:w-1/2">
                       <Image
-                        src="/radiology2.png"
+                        src="/Radiology2.png"
                         alt="Radiology Illustration 2"
                         width={500}
                         height={300}
